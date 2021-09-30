@@ -76,7 +76,7 @@ with dataset:
                 return self
 
 
-        Database("kaggle datasets download -d andrewmvd/heart-failure-clinical-data")
+        # Database("kaggle datasets download -d andrewmvd/heart-failure-clinical-data")
         df = pd.read_csv('heart_failure_clinical_records_dataset.csv')
 
 with data_exploration:
