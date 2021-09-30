@@ -14,7 +14,6 @@ from sklearn.metrics import classification_report,confusion_matrix
 
 
 file_title = 'heart_failure_clinical_records_dataset.csv'
-os.chdir('/users/rubenwiedijk/Pycharmprojects/VA_opdracht/heart_failure_dir')
 
 header = st.container()     # creates section width of page
 row = st.container()
