@@ -36,14 +36,15 @@ def get_data():
 with header:
     st.title("Heart failure prediction")
     st.write("""In deze blogpost onderzoeken we de voorspelbaarheid van hartfalen en realties tussen veschillende
-                waardes gemeten in het bloed van patieten. De dataset is afkomsting van Kaggle.""")
+                waardes gemeten in het bloed van patienten. De dataset is afkomsting van Kaggle en word geimporteerd door middels van 
+                de Kaggle API..""")
     with row:
         st.image(_image)
 
 with dataset:
     st.header('Importeren van de data')
     st.write('''Voor het importeren van de data is gebruik gemaakt vaan de kaggle API. Hiervoor moeten eerst een paar 
-                voorbereidingen voor gedaan worden. Allereerst mot je via je kaggle account een API key opvragen. Daarna
+                voorbereidingen voor gedaan worden. Allereerst mot je via je Kaggle account een API-key opvragen. Daarna
                 moet je het kaggle.json file in een directory bij je hom directory opslaan. Dit gaat met de volgende code 
                 voor de mac:
                 ''')
@@ -146,6 +147,7 @@ with data_exploration:
             'active': 0,
             'buttons': dropdown_buttons}]
     }, title='Boxplots van de dataset')
+
     st.write(fig)
     st.write("""Om te kijken of er uitschieters zijn hebben we van alle variabelen een boxplot gemaakt. Maar dit gehele overzicht heeft een paar problemen! 
     De platelets data maakt gebruik van veel hogere getallen, en sommige variabelen zijn binaire van waarde, oftewel de waardes zijn alleen een 0 of een 1. 
@@ -202,8 +204,14 @@ with modelling:
         error_rate_df = pd.DataFrame(error_rate)
         st.write(error_rate_df)
 
-
-    knn = KNeighborsClassifier(n_neighbors=29)
+    error_rate_df.columns = ['error']
+    fig = px.line(error_rate_df, x=error_rate_df.index, y='error', markers=True,
+                  title='Error van voorspellingen',
+                  labels={
+                      'index': "k"
+                  })
+    st.write(fig)
+    knn = KNeighborsClassifier(n_neighbors=np.argmax(error_rate))
     knn.fit(X_train, y_train)
 
     pred = knn.predict(X_test)
