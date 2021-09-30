@@ -174,7 +174,7 @@ with data_exploration:
                      "correlatie grafiek. De slider is interactief, het is dus mogelijk om te filteren op man of vrouw. "
                      "Hier wordt weergegeven wat de death event is per ziekte per sex.")
 with modelling:
-    st.header('Modeleren')
+    st.header('Modelleren')
     st.write(
         "Om een voorspellend model te maken voor de data maken we gebruik van een kNN algorithme. Het kNN algorithme "
         "neemt de 'k' dichtsbijzijnde waarnemingen en voorspelt de klasse afhankelijk van de waargenomen klassen van de "
@@ -202,7 +202,6 @@ with modelling:
             error_rate = np.append(error_rate, np.mean(pred_i != y_test))
 
         error_rate_df = pd.DataFrame(error_rate)
-        st.write(error_rate_df)
 
     error_rate_df.columns = ['error']
     fig = px.line(error_rate_df, x=error_rate_df.index, y='error', markers=True,
@@ -211,11 +210,10 @@ with modelling:
                       'index': "k"
                   })
     st.write(fig)
-    knn = KNeighborsClassifier(n_neighbors=np.argmax(error_rate))
+    knn = KNeighborsClassifier(n_neighbors=np.argmin(error_rate))
     knn.fit(X_train, y_train)
 
     pred = knn.predict(X_test)
-    st.write(pred)
 
     st.write(confusion_matrix(y_test, pred))
 
