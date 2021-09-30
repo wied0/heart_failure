@@ -37,7 +37,7 @@ with header:
     st.title("Heart failure prediction")
     st.write("""In deze blogpost onderzoeken we de voorspelbaarheid van hartfalen en realties tussen veschillende
                 waardes gemeten in het bloed van patienten. De dataset is afkomsting van Kaggle en word geimporteerd door middels van 
-                de Kaggle API..""")
+                de Kaggle API.""")
     with row:
         st.image(_image)
 
